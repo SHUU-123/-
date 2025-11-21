@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SW2.5 キャラクターシート（スマホ対応）</title>
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0.5rem;
+    background: #f9f9f9;
+  }
+  h2 {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+  }
+  .section {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .grid {
+    display: grid;
+    gap: 0.4rem;
+  }
+  .row-2 { grid-template-columns: 1fr 1fr; }
+  .row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  label {
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  input, textarea, select {
+    width: 100%;
+    padding: 0.4rem;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    background: #fff;
+  }
+  textarea {
+    resize: vertical;
+  }
+  .num-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 2px;
+  }
+  .num-grid input {
+    padding: 0.2rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body><div class="section">
+  <h2>基本情報</h2>
+  <div class="grid row-2">
+    <div>
+      <label>キャラクター名</label>
+      <input type="text" />
+    </div>
+    <div>
+      <label>プレイヤー名</label>
+      <input type="text" />
+    </div>
+  </div>
+  <div class="grid row-3" style="margin-top:0.5rem;">
+    <div>
+      <label>種族</label>
+      <input type="text" />
+    </div>
+    <div>
+      <label>性別</label>
+      <input type="text" />
+    </div>
+    <div>
+      <label>年齢</label>
+      <input type="text" />
+    </div>
+  </div>
+</div><div class="section">
+  <h2>能力値</h2>
+  <div class="grid row-3">
+    <div><label>器用度</label><input type="number" /></div>
+    <div><label>敏捷度</label><input type="number" /></div>
+    <div><label>筋力</label><input type="number" /></div>
+    <div><label>生命力</label><input type="number" /></div>
+    <div><label>知力</label><input type="number" /></div>
+    <div><label>精神力</label><input type="number" /></div>
+  </div>
+</div><div class="section">
+  <h2>技能</h2>
+  <textarea rows="6" placeholder="例：ファイター、グラップラー、プリースト 等"></textarea>
+</div><div class="section">
+  <h2>装備</h2>
+  <textarea rows="6"></textarea>
+</div><div class="section">
+  <h2>所持品</h2>
+  <textarea rows="6"></textarea>
+</div><div class="section">
+  <h2>メモ</h2>
+  <textarea rows="6"></textarea>
+</div><div class="section">
+  <h2>成長管理</h2>
+  <div class="num-grid">
+    <!-- 1〜100 用マス -->
+    <script>
+      for (let i=1; i<=100; i++) {
+        document.write(`<input type='text' placeholder='${i}' />`);
+      }
+    </script>
+  </div>
+</div></body>
+</html>
