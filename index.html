@@ -2,118 +2,207 @@
 
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>SW2.5 キャラクターシート（スマホ対応）</title>
-<style>
-  body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0.5rem;
-    background: #f9f9f9;
-  }
-  h2 {
-    margin: 0.5rem 0;
-    font-size: 1.1rem;
-  }
-  .section {
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 0.6rem;
-    margin-bottom: 1rem;
-  }
-  .grid {
-    display: grid;
-    gap: 0.4rem;
-  }
-  .row-2 { grid-template-columns: 1fr 1fr; }
-  .row-3 { grid-template-columns: 1fr 1fr 1fr; }
-  label {
-    font-size: 0.8rem;
-    display: block;
-    margin-bottom: 0.2rem;
-  }
-  input, textarea, select {
-    width: 100%;
-    padding: 0.4rem;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    box-sizing: border-box;
-    background: #fff;
-  }
-  textarea {
-    resize: vertical;
-  }
-  .num-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 2px;
-  }
-  .num-grid input {
-    padding: 0.2rem;
-    text-align: center;
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SW2.5 キャラクターシート（編集可能）</title>
+  <style>
+    :root{
+      --gap:8px;
+      --box-border:2px solid #111;
+      --sheet-width:1200px;
+    }
+    html,body{height:100%;margin:0;font-family:system-ui, -apple-system, "Segoe UI", Roboto, "ヒラギノ角ゴ Pro W3", "Noto Sans JP", sans-serif;background:#fff;color:#000}
+    .wrap{max-width:var(--sheet-width);margin:18px auto;padding:12px;box-sizing:border-box}
+    .sheet{display:grid;grid-template-columns:1fr 1fr;gap:20px}.panel{padding:10px;box-sizing:border-box}
+.card{border:var(--box-border);padding:8px;min-height:60px}
+
+/* common small boxes */
+.grid-rows{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--gap)}
+.box{border:1.5px dashed #111;padding:6px;background:transparent;min-height:36px}
+.label{font-size:12px;margin-bottom:6px}
+
+/* left column layout */
+.left .top{display:flex;gap:8px}
+.left .top .title{flex:2}
+.left .top .meta{flex:1}
+.portrait{border:var(--box-border);height:180px;display:flex;align-items:center;justify-content:center}
+
+.abilities{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}
+.abilities .ability{border:var(--box-border);padding:6px}
+
+.skill-list{margin-top:12px}
+.skill-row{display:flex;gap:8px;margin-bottom:6px}
+.skill-row input[type=text]{flex:1}
+
+/* right column layout */
+.right .top-row{display:flex;gap:8px}
+.right .top-row .wide{flex:3}
+.right .top-row .narrow{flex:1}
+
+/* big boxes */
+textarea{width:100%;box-sizing:border-box;border:1.5px dashed #111;padding:8px;min-height:80px;resize:vertical}
+input[type=text], input[type=number]{width:100%;box-sizing:border-box;padding:6px;border:1.2px dashed #111}
+
+/* responsive for Android phones */
+@media (max-width:900px){
+  .sheet{grid-template-columns:1fr}
+  :root{--sheet-width:940px}
+}
+
+/* visual helpers: mimic printed boxes */
+.field-row{display:grid;grid-template-columns:1fr 120px 120px;gap:8px;align-items:center}
+.small-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mini{height:36px}
+
+  </style>
 </head>
-<body><div class="section">
-  <h2>基本情報</h2>
-  <div class="grid row-2">
-    <div>
-      <label>キャラクター名</label>
-      <input type="text" />
+<body>
+  <div class="wrap">
+    <div class="sheet">
+      <!-- left column -->
+      <div class="panel left">
+        <div class="top">
+          <div class="card title">
+            <div class="label">キャラクター名</div>
+            <input type="text" placeholder="ここに入力" />
+            <div class="label" style="margin-top:6px">プレイヤー名 / 性別 / 年齢</div>
+            <div style="display:flex;gap:6px;margin-top:6px">
+              <input type="text" placeholder="プレイヤー名" />
+              <input type="text" placeholder="性別" />
+              <input type="text" placeholder="年齢" />
+            </div>
+          </div>
+          <div class="card meta">
+            <div class="label">容姿 / 備考（小）</div>
+            <textarea placeholder="外見や一言メモ"></textarea>
+          </div>
+        </div><div style="display:flex;gap:12px;margin-top:12px">
+      <div style="flex:1">
+        <div class="portrait">顔イラスト / 写真</div>
+      </div>
+      <div style="flex:1">
+        <div class="card">
+          <div class="label">戦闘/状態</div>
+          <div class="field-row" style="margin-top:6px">
+            <input type="text" placeholder="HP" />
+            <input type="number" placeholder="現在" />
+            <input type="number" placeholder="最大" />
+          </div>
+          <div class="label" style="margin-top:8px">JP / MP等</div>
+          <div style="display:flex;gap:6px;margin-top:6px">
+            <input type="text" placeholder="MP" />
+            <input type="text" placeholder="TP" />
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <label>プレイヤー名</label>
-      <input type="text" />
+
+    <div class="abilities">
+      <div class="ability">
+        <div class="label">能力値</div>
+        <div class="small-grid" style="margin-top:6px">
+          <div><input type="text" placeholder="筋力" class="mini"/></div>
+          <div><input type="text" placeholder="器用" class="mini"/></div>
+          <div><input type="text" placeholder="敏捷" class="mini"/></div>
+          <div><input type="text" placeholder="知力" class="mini"/></div>
+          <div><input type="text" placeholder="精神" class="mini"/></div>
+          <div><input type="text" placeholder="幸運" class="mini"/></div>
+        </div>
+      </div>
+      <div class="ability">
+        <div class="label">特徴・特技</div>
+        <textarea placeholder="特徴や一行説明"></textarea>
+      </div>
     </div>
+
+    <div class="card skill-list" style="margin-top:12px">
+      <div class="label">技能 / 呪文 / アイテム欄</div>
+      <div style="margin-top:6px">
+        <!-- 10 rows -->
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+        <div class="skill-row"><input type="text" placeholder="技能名" /><input type="text" placeholder="値" style="width:80px" /></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="label">備考（長文）</div>
+      <textarea placeholder="設定やロールプレイメモ"></textarea>
+    </div>
+
   </div>
-  <div class="grid row-3" style="margin-top:0.5rem;">
-    <div>
-      <label>種族</label>
-      <input type="text" />
+
+  <!-- right column -->
+  <div class="panel right">
+    <div class="top-row">
+      <div class="card wide">
+        <div class="label">装備 / 所持品</div>
+        <textarea placeholder="装備や所持品を記入"></textarea>
+      </div>
+      <div class="card narrow">
+        <div class="label">防御 / 回避等</div>
+        <input type="text" placeholder="回避" style="margin-top:6px" />
+        <input type="text" placeholder="防御" style="margin-top:6px" />
+        <input type="text" placeholder="その他" style="margin-top:6px" />
+      </div>
     </div>
-    <div>
-      <label>性別</label>
-      <input type="text" />
+
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <div style="flex:1" class="card">
+        <div class="label">攻撃欄</div>
+        <div style="display:grid;gap:6px;margin-top:6px">
+          <div class="field-row"><input type="text" placeholder="武器名" /><input type="text" placeholder="命中" /><input type="text" placeholder="ダメ" /></div>
+          <div class="field-row"><input type="text" placeholder="武器名" /><input type="text" placeholder="命中" /><input type="text" placeholder="ダメ" /></div>
+          <div class="field-row"><input type="text" placeholder="武器名" /><input type="text" placeholder="命中" /><input type="text" placeholder="ダメ" /></div>
+        </div>
+      </div>
+
+      <div style="flex:1" class="card">
+        <div class="label">技能ノート / 戦闘メモ</div>
+        <textarea placeholder="メモ"></textarea>
+      </div>
     </div>
-    <div>
-      <label>年齢</label>
-      <input type="text" />
+
+    <div class="card" style="margin-top:12px">
+      <div class="label">判定表 / チェック表</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px">
+        <input type="text" placeholder="0" />
+        <input type="text" placeholder="1" />
+        <input type="text" placeholder="2" />
+        <input type="text" placeholder="3" />
+        <input type="text" placeholder="4" />
+      </div>
     </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="label">大きなメモ欄 / セッション用</div>
+      <textarea placeholder="セッション中の長いメモやログ"></textarea>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <div style="flex:1" class="card">
+        <div class="label">経験点 / 金銭</div>
+        <input type="number" placeholder="経験点" />
+        <input type="number" placeholder="金銭" style="margin-top:6px" />
+      </div>
+      <div style="flex:1" class="card">
+        <div class="label">その他小メモ</div>
+        <textarea placeholder="短いメモ"></textarea>
+      </div>
+    </div>
+
   </div>
-</div><div class="section">
-  <h2>能力値</h2>
-  <div class="grid row-3">
-    <div><label>器用度</label><input type="number" /></div>
-    <div><label>敏捷度</label><input type="number" /></div>
-    <div><label>筋力</label><input type="number" /></div>
-    <div><label>生命力</label><input type="number" /></div>
-    <div><label>知力</label><input type="number" /></div>
-    <div><label>精神力</label><input type="number" /></div>
+</div>
+
+<div style="font-size:12px;margin-top:10px">ヒント: ブラウザのメニューから「ホーム画面に追加」するとAndroidでアプリのように使えます。</div>
+
   </div>
-</div><div class="section">
-  <h2>技能</h2>
-  <textarea rows="6" placeholder="例：ファイター、グラップラー、プリースト 等"></textarea>
-</div><div class="section">
-  <h2>装備</h2>
-  <textarea rows="6"></textarea>
-</div><div class="section">
-  <h2>所持品</h2>
-  <textarea rows="6"></textarea>
-</div><div class="section">
-  <h2>メモ</h2>
-  <textarea rows="6"></textarea>
-</div><div class="section">
-  <h2>成長管理</h2>
-  <div class="num-grid">
-    <!-- 1〜100 用マス -->
-    <script>
-      for (let i=1; i<=100; i++) {
-        document.write(`<input type='text' placeholder='${i}' />`);
-      }
-    </script>
-  </div>
-</div></body>
+</body>
 </html>
